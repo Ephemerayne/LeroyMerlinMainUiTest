@@ -12,4 +12,7 @@
     <string name="this_is_profile_fragment">THIS IS PROFILE FRAGMENT</string>
     <string name="this_is_stores_fragment">THIS IS STORES FRAGMENT</string>
     <string name="this_is_home_fragment">THIS IS HOME FRAGMENT</string>
+    <string name="recently_viewed">Недавно просмотренные</string>
+    <string name="limited_offer">Предложение ограничено</string>
+    <string name="best_price">Лучшая цена</string>
 </resources>

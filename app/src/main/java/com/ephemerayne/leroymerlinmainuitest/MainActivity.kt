@@ -13,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.ephemerayne.leroymerlinmainuitest.databinding.ActivityMainBinding
 import com.ephemerayne.leroymerlinmainuitest.ui.cart.CartFragment
 import com.ephemerayne.leroymerlinmainuitest.ui.home.HomeFragment
+import com.ephemerayne.leroymerlinmainuitest.ui.home.HomeFragmentViewModel
 import com.ephemerayne.leroymerlinmainuitest.ui.mylist.MyListFragment
 import com.ephemerayne.leroymerlinmainuitest.ui.profile.ProfileFragment
 import com.ephemerayne.leroymerlinmainuitest.ui.stores.StoresFragment
