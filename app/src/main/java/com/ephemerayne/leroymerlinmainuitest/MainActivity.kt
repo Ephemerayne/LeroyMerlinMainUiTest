@@ -1,26 +1,59 @@
 package com.ephemerayne.leroymerlinmainuitest
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.iterator
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.ephemerayne.leroymerlinmainuitest.databinding.ActivityMainBinding
+import com.ephemerayne.leroymerlinmainuitest.ui.cart.CartFragment
+import com.ephemerayne.leroymerlinmainuitest.ui.home.HomeFragment
+import com.ephemerayne.leroymerlinmainuitest.ui.mylist.MyListFragment
+import com.ephemerayne.leroymerlinmainuitest.ui.profile.ProfileFragment
+import com.ephemerayne.leroymerlinmainuitest.ui.stores.StoresFragment
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        openFragment(HomeFragment())
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        ActivityMainBinding.inflate(layoutInflater).also {
+            binding = it
+            setContentView(it.root)
+        }
+
+        binding.navView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> openFragment(fragment = HomeFragment())
+                R.id.navigation_my_list -> openFragment(fragment = MyListFragment())
+                R.id.navigation_stores -> openFragment(fragment = StoresFragment())
+                R.id.navigation_profile -> openFragment(fragment = ProfileFragment())
+                R.id.navigation_cart -> openFragment(fragment = CartFragment())
+            }
+            updateNavigationBarState(item.itemId)
+            true
+        }
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.nav_host_fragment, fragment)
+        transaction.commit()
+    }
+
+    private fun updateNavigationBarState(actionId: Int) {
+        val menu: Menu = binding.navView.menu
+
+        for (item in menu.iterator()) {
+            item.apply { isChecked = itemId == actionId }
+        }
     }
 }

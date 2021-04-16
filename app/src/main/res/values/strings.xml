@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">LeroyMerlinMainUiTest</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="home_bottom_nav">Главная</string>
+    <string name="stores_bottom_nav">Магазины</string>
+    <string name="my_list_bottom_nav">Мой список</string>
+    <string name="profile_bottom_nav">Профиль</string>
+    <string name="cart_bottom_nav">Корзина</string>
+
+    //FRAGMENTS
+    <string name="this_is_cart_fragment">THIS IS CART FRAGMENT</string>
+    <string name="this_is_list_fragment">THIS IS LIST FRAGMENT</string>
+    <string name="this_is_profile_fragment">THIS IS PROFILE FRAGMENT</string>
+    <string name="this_is_stores_fragment">THIS IS STORES FRAGMENT</string>
+    <string name="this_is_home_fragment">THIS IS HOME FRAGMENT</string>
 </resources>
