@@ -16,6 +16,7 @@ class HomeFragment : Fragment() {
 
     private val limitedAdapter: ProductAdapter = ProductAdapter()
     private val bestPriceAdapter: ProductAdapter = ProductAdapter()
+    private val categoriesAdapter: CategoriesPagerAdapter = CategoriesPagerAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +29,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
+
+        binding.viewPagerCategories.adapter = categoriesAdapter
+        viewModel.categories.observe(viewLifecycleOwner, {categories ->
+            categoriesAdapter.setCategories(categories)
+        })
 
         with(binding.recyclerViewLimitedOffer) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
