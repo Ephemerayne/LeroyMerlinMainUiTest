@@ -14,10 +14,10 @@ class HomeFragmentViewModel : ViewModel() {
             Category(0, "Каталог", ""),
             Category(1, "Сад", ""),
             Category(2, "Освещение", ""),
-            Category(3, "Каталог", ""),
-            Category(4, "Каталог", ""),
-            Category(5, "Каталог", ""),
-            Category(6, "Все", "")
+            Category(3, "Инструменты", ""),
+            Category(4, "Стройматериалы", ""),
+            Category(5, "Декор", ""),
+            Category(6, "Смотреть всё", "")
         )
     }
 

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.ephemerayne.leroymerlinmainuitest.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -16,7 +18,7 @@ class HomeFragment : Fragment() {
 
     private val limitedAdapter: ProductAdapter = ProductAdapter()
     private val bestPriceAdapter: ProductAdapter = ProductAdapter()
-    private val categoriesAdapter: CategoriesPagerAdapter = CategoriesPagerAdapter()
+    private val categoriesAdapter: CategoriesAdapter = CategoriesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,8 +32,14 @@ class HomeFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
 
-        binding.viewPagerCategories.adapter = categoriesAdapter
-        viewModel.categories.observe(viewLifecycleOwner, {categories ->
+        binding.recyclerViewCategories.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = categoriesAdapter
+            LinearSnapHelper().attachToRecyclerView(this)
+            setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_PAGING)
+        }
+
+        viewModel.categories.observe(viewLifecycleOwner, { categories ->
             categoriesAdapter.setCategories(categories)
         })
 
@@ -46,7 +54,7 @@ class HomeFragment : Fragment() {
 
         }
 
-        viewModel.products.observe(viewLifecycleOwner, {products ->
+        viewModel.products.observe(viewLifecycleOwner, { products ->
             limitedAdapter.setProducts(products.filter { it.isLimitedOffer })
             bestPriceAdapter.setProducts(products.filter { it.isBestPrice })
         })

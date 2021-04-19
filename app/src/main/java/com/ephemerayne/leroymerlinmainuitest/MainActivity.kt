@@ -6,11 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.iterator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.viewpager2.widget.ViewPager2
 import com.ephemerayne.leroymerlinmainuitest.databinding.ActivityMainBinding
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.Category
 import com.ephemerayne.leroymerlinmainuitest.ui.cart.CartFragment
-import com.ephemerayne.leroymerlinmainuitest.ui.home.CategoriesPagerAdapter
 import com.ephemerayne.leroymerlinmainuitest.ui.home.HomeFragment
 import com.ephemerayne.leroymerlinmainuitest.ui.mylist.MyListFragment
 import com.ephemerayne.leroymerlinmainuitest.ui.profile.ProfileFragment
@@ -28,9 +25,6 @@ class MainActivity : AppCompatActivity() {
             binding = it
             setContentView(it.root)
         }
-
-
-
 
         binding.navView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
