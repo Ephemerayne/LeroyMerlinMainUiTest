@@ -3,21 +3,20 @@ package com.ephemerayne.leroymerlinmainuitest.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.Category
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.Product
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.*
 
 
 class HomeFragmentViewModel : ViewModel() {
 
     val categories: LiveData<List<Category>> = MutableLiveData<List<Category>>().apply {
         value = listOf(
-            Category(0, "Каталог", ""),
-            Category(1, "Сад", ""),
-            Category(2, "Освещение", ""),
-            Category(3, "Инструменты", ""),
-            Category(4, "Стройматериалы", ""),
-            Category(5, "Декор", ""),
-            Category(6, "Смотреть всё", "")
+            CatalogCategory(),
+            ProductCategory(1, "Сад", ""),
+            ProductCategory(2, "Освещение", ""),
+            ProductCategory(3, "Инструменты", ""),
+            ProductCategory(4, "Стройматериалы", ""),
+            ProductCategory(5, "Декор", ""),
+            AllCategory()
         )
     }
 

@@ -1,15 +1,29 @@
 package com.ephemerayne.leroymerlinmainuitest.ui.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.ephemerayne.leroymerlinmainuitest.R
+import com.ephemerayne.leroymerlinmainuitest.databinding.CategoryItemAllBinding
 import com.ephemerayne.leroymerlinmainuitest.databinding.CategoryItemBinding
+import com.ephemerayne.leroymerlinmainuitest.databinding.CategoryItemCatalogBinding
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.AllCategory
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.CatalogCategory
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.Category
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductCategory
+import java.lang.IllegalArgumentException
 
 
-class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
+class CategoriesAdapter(context: Context) : RecyclerView.Adapter<CategoriesViewHolder<*>>() {
+
+    private val inflater = LayoutInflater.from(context)
+
+    companion object {
+        private const val CATALOG_TYPE = 0
+        private const val PRODUCT_TYPE = 1
+        private const val ALL_TYPE = 2
+
+    }
 
     private val categories: ArrayList<Category> = arrayListOf()
 
@@ -19,44 +33,53 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHol
         notifyDataSetChanged()
     }
 
-    class CategoryViewHolder(
-        private val binding: CategoryItemBinding
-    ) : RecyclerView.ViewHolder(binding.root) {
-
-        fun setCategoryContent(category: Category, position: Int, categories: ArrayList<Category>) =
-            with(binding) {
-                categoryName.text = category.title
-
-                if (position == 0 || position == categories.size - 1) {
-                    cardViewCategory.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            itemView.context,
-                            R.color.green
-                        )
-                    )
-                } else {
-                    cardViewCategory.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            itemView.context,
-                            R.color.light_grey
-                        )
-                    )
-                }
-            }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder =
-        CategoryViewHolder(
-            CategoryItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CategoriesViewHolder<*> =
+        when (viewType) {
+            CATALOG_TYPE -> CatalogCategoryViewHolder(
+                CategoryItemCatalogBinding.inflate(
+                    inflater,
+                    parent,
+                    false
+                )
             )
-        )
+            ALL_TYPE -> AllCategoryViewHolder(
+                CategoryItemAllBinding.inflate(
+                    inflater,
+                    parent,
+                    false
+                )
+            )
+            PRODUCT_TYPE -> ProductCategoryViewHolder(
+                CategoryItemBinding.inflate(
+                    inflater,
+                    parent,
+                    false
+                )
+            )
+            else -> throw IllegalArgumentException("Invalid view type.")
+        }
 
-    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.setCategoryContent(categories[position], position, categories)
+    override fun getItemViewType(position: Int): Int {
+        return when (categories[position]) {
+            is CatalogCategory -> CATALOG_TYPE
+            is AllCategory -> ALL_TYPE
+            is ProductCategory -> PRODUCT_TYPE
+            else -> throw IllegalArgumentException("Invalid type of data $position.")
+        }
     }
 
     override fun getItemCount(): Int = categories.size
+
+    override fun onBindViewHolder(holder: CategoriesViewHolder<*>, position: Int) {
+        val category = categories[position]
+        when (holder) {
+            is CatalogCategoryViewHolder -> holder.setContent(category as CatalogCategory)
+            is AllCategoryViewHolder -> holder.setContent(category as AllCategory)
+            is ProductCategoryViewHolder -> holder.setContent(category as ProductCategory)
+            else -> throw IllegalArgumentException("Adapter can not set content.")
+        }
+    }
 }

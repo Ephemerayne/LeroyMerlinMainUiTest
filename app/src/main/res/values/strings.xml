@@ -6,6 +6,10 @@
     <string name="profile_bottom_nav">Профиль</string>
     <string name="cart_bottom_nav">Корзина</string>
 
+
+    <string name="catalog_name">Каталог</string>
+    <string name="see_all">Смотреть всё</string>
+
     //FRAGMENTS
     <string name="this_is_cart_fragment">THIS IS CART FRAGMENT</string>
     <string name="this_is_list_fragment">THIS IS LIST FRAGMENT</string>

@@ -18,7 +18,7 @@ class HomeFragment : Fragment() {
 
     private val limitedAdapter: ProductAdapter = ProductAdapter()
     private val bestPriceAdapter: ProductAdapter = ProductAdapter()
-    private val categoriesAdapter: CategoriesAdapter = CategoriesAdapter()
+    private lateinit var categoriesAdapter: CategoriesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,11 +26,12 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ) = FragmentHomeBinding.inflate(inflater).also { binding = it }.root
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
+
+        context?.let { categoriesAdapter = CategoriesAdapter(it) }
 
         binding.recyclerViewCategories.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
