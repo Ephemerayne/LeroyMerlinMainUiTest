@@ -2,7 +2,8 @@ package com.ephemerayne.leroymerlinmainuitest.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.*
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.Product
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductCategory
 import com.ephemerayne.leroymerlinmainuitest.domain.home.Repository
 
 class FakeRepository : Repository {
@@ -10,16 +11,14 @@ class FakeRepository : Repository {
     override fun insertProductCategory(category: ProductCategory) {
     }
 
-    override fun getCategories(): LiveData<List<Category>> {
-        return MutableLiveData<List<Category>>().apply {
+    override fun getCategories(): LiveData<List<ProductCategory>> {
+        return MutableLiveData<List<ProductCategory>>().apply {
             value = listOf(
-                CatalogCategory(),
                 ProductCategory(1, "Сад", ""),
                 ProductCategory(2, "Освещение", ""),
                 ProductCategory(3, "Инструменты", ""),
                 ProductCategory(4, "Стройматериалы", ""),
                 ProductCategory(5, "Декор", ""),
-                AllCategory()
             )
         }
     }

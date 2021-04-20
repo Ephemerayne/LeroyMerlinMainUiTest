@@ -5,7 +5,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.Category
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.Product
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductCategory
 
@@ -16,7 +15,7 @@ interface AppDaoRoomImpl : AppDao {
     override fun insertProductCategory(category: ProductCategory)
 
     @Query("SELECT * FROM categories_table")
-    override fun getCategories(): LiveData<List<Category>>
+    override fun getCategories(): LiveData<List<ProductCategory>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     override fun insertProduct(product: Product)
