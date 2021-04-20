@@ -5,16 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.ephemerayne.leroymerlinmainuitest.App
 import com.ephemerayne.leroymerlinmainuitest.databinding.FragmentHomeBinding
+import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
+    @Inject
+    lateinit var viewModel: HomeFragmentViewModel
+
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var viewModel: HomeFragmentViewModel
 
     private val limitedAdapter: ProductAdapter = ProductAdapter()
     private val bestPriceAdapter: ProductAdapter = ProductAdapter()
@@ -29,7 +32,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
+        (activity?.application as App).appComponent.inject(this)
 
         context?.let { categoriesAdapter = CategoriesAdapter(it) }
 

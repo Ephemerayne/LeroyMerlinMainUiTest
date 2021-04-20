@@ -9,8 +9,9 @@ import com.ephemerayne.leroymerlinmainuitest.domain.home.Repository
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import javax.inject.Inject
 
-class RepositoryImpl(
+class RepositoryImpl @Inject constructor(
     private val appDao: AppDao,
     private val service: AppApi
 ) : Repository {
