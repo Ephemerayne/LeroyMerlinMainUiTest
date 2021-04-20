@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.*
 
-class FakeDao : Dao {
+class FakeAppDao : AppDao {
 
     override fun insertProductCategory(category: ProductCategory) {
     }
