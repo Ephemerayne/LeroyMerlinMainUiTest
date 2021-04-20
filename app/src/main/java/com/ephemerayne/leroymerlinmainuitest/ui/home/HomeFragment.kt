@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ephemerayne.leroymerlinmainuitest.App
 import com.ephemerayne.leroymerlinmainuitest.databinding.FragmentHomeBinding
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.AllCategory
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.CatalogCategory
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.Category
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -44,7 +47,13 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.getCategories().observe(viewLifecycleOwner, { categories ->
-            categoriesAdapter.setCategories(categories)
+            val listCategories: ArrayList<Category> = ArrayList<Category>().apply {
+                add(CatalogCategory())
+                addAll(categories)
+                add(AllCategory())
+            }
+
+            categoriesAdapter.setCategories(listCategories)
         })
 
         with(binding.recyclerViewLimitedOffer) {
