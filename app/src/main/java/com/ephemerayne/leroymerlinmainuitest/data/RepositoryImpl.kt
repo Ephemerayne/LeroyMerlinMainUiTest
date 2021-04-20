@@ -2,9 +2,7 @@ package com.ephemerayne.leroymerlinmainuitest.data
 
 import androidx.lifecycle.LiveData
 import com.ephemerayne.leroymerlinmainuitest.data.local.AppDao
-import com.ephemerayne.leroymerlinmainuitest.data.local.AppDatabase
 import com.ephemerayne.leroymerlinmainuitest.data.remote.AppApi
-import com.ephemerayne.leroymerlinmainuitest.data.remote.FakeAppService
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.Product
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductCategory
 import com.ephemerayne.leroymerlinmainuitest.domain.home.Repository
@@ -12,10 +10,10 @@ import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class RepositoryImpl(appDatabase: AppDatabase) : Repository {
-
-    private val appDao: AppDao = appDatabase.appDao()
-    private val service: AppApi = FakeAppService()
+class RepositoryImpl(
+    private val appDao: AppDao,
+    private val service: AppApi
+) : Repository {
 
     override fun getCategories(): LiveData<List<ProductCategory>> {
         service.getCategories()
