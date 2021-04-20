@@ -6,11 +6,7 @@ import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductCategory
 
 interface Repository {
 
-    fun insertProductCategory(category: ProductCategory)
-
     fun getCategories(): LiveData<List<ProductCategory>>
-
-    fun insertProduct(product: Product)
 
     fun getProducts(): LiveData<List<Product>>
 }

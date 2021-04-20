@@ -15,12 +15,7 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
     private val appDatabase: AppDatabase = AppDatabase.getDatabase(application)
     private val repository: Repository = RepositoryImpl(appDatabase)
 
-    fun insertProductCategory(category: ProductCategory) =
-        repository.insertProductCategory(category)
-
     fun getCategories(): LiveData<List<ProductCategory>> = repository.getCategories()
-
-    fun insertProduct(product: Product) = repository.insertProduct(product)
 
     fun getProducts(): LiveData<List<Product>> = repository.getProducts()
 }

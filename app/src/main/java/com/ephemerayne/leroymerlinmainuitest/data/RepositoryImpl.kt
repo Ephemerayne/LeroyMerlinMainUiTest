@@ -17,9 +17,6 @@ class RepositoryImpl(appDatabase: AppDatabase) : Repository {
     private val appDao: AppDao = appDatabase.appDao()
     private val service: AppApi = FakeAppService()
 
-    override fun insertProductCategory(category: ProductCategory) =
-        appDao.insertProductCategory(category)
-
     override fun getCategories(): LiveData<List<ProductCategory>> {
         service.getCategories()
             .subscribeOn(Schedulers.io())
@@ -47,8 +44,6 @@ class RepositoryImpl(appDatabase: AppDatabase) : Repository {
 
         return appDao.getCategories()
     }
-
-    override fun insertProduct(product: Product) = appDao.insertProduct(product)
 
     override fun getProducts(): LiveData<List<Product>> {
         service.getProducts()

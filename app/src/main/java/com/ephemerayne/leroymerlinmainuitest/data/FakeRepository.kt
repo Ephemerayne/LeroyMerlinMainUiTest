@@ -8,9 +8,6 @@ import com.ephemerayne.leroymerlinmainuitest.domain.home.Repository
 
 class FakeRepository : Repository {
 
-    override fun insertProductCategory(category: ProductCategory) {
-    }
-
     override fun getCategories(): LiveData<List<ProductCategory>> {
         return MutableLiveData<List<ProductCategory>>().apply {
             value = listOf(
@@ -21,9 +18,6 @@ class FakeRepository : Repository {
                 ProductCategory(5, "Декор", ""),
             )
         }
-    }
-
-    override fun insertProduct(product: Product) {
     }
 
     override fun getProducts(): LiveData<List<Product>> {
