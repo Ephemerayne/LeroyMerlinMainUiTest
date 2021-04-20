@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
             setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_PAGING)
         }
 
-        viewModel.categories.observe(viewLifecycleOwner, { categories ->
+        viewModel.getCategories().observe(viewLifecycleOwner, { categories ->
             categoriesAdapter.setCategories(categories)
         })
 
@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
 
         }
 
-        viewModel.products.observe(viewLifecycleOwner, { products ->
+        viewModel.getProducts().observe(viewLifecycleOwner, { products ->
             limitedAdapter.setProducts(products.filter { it.isLimitedOffer })
             bestPriceAdapter.setProducts(products.filter { it.isBestPrice })
         })
