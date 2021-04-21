@@ -13,7 +13,10 @@ import com.ephemerayne.leroymerlinmainuitest.domain.entity.Category
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.CategoryEntity
 
 
-class CategoriesAdapter(context: Context) : RecyclerView.Adapter<CategoriesViewHolder<*>>() {
+class CategoriesAdapter(
+    context: Context,
+    private val onCategoryClickListener: CategoryListener,
+) : RecyclerView.Adapter<CategoriesViewHolder<*>>() {
 
     private val inflater = LayoutInflater.from(context)
 
@@ -32,7 +35,7 @@ class CategoriesAdapter(context: Context) : RecyclerView.Adapter<CategoriesViewH
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(
+    override fun onCreateViewHolder (
         parent: ViewGroup,
         viewType: Int
     ): CategoriesViewHolder<*> =
@@ -42,21 +45,24 @@ class CategoriesAdapter(context: Context) : RecyclerView.Adapter<CategoriesViewH
                     inflater,
                     parent,
                     false
-                )
+                ),
+                onCategoryClickListener
             )
             ALL_TYPE -> AllCategoryViewHolder(
                 CategoryItemAllBinding.inflate(
                     inflater,
                     parent,
                     false
-                )
+                ),
+                onCategoryClickListener
             )
             PRODUCT_TYPE -> ProductCategoryViewHolder(
                 CategoryItemBinding.inflate(
                     inflater,
                     parent,
                     false
-                )
+                ),
+                onCategoryClickListener
             )
             else -> throw IllegalArgumentException("Invalid view type.")
         }
@@ -81,4 +87,6 @@ class CategoriesAdapter(context: Context) : RecyclerView.Adapter<CategoriesViewH
             else -> throw IllegalArgumentException("Adapter can not set content.")
         }
     }
+
+
 }
