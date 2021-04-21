@@ -5,22 +5,22 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.Product
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductCategory
+import com.ephemerayne.leroymerlinmainuitest.data.model.CategoryModel
+import com.ephemerayne.leroymerlinmainuitest.data.model.ProductModel
 
 @Dao
 interface AppDaoRoomImpl : AppDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override fun insertProductCategory(category: ProductCategory)
+    override fun insertProductCategory(category: CategoryModel)
 
     @Query("SELECT * FROM categories_table")
-    override fun getCategories(): LiveData<List<ProductCategory>>
+    override fun getCategories(): LiveData<List<CategoryModel>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override fun insertProduct(product: Product)
+    override fun insertProduct(product: ProductModel)
 
     @Query("SELECT * FROM products_table")
-    override fun getProducts(): LiveData<List<Product>>
+    override fun getProducts(): LiveData<List<ProductModel>>
 
 }

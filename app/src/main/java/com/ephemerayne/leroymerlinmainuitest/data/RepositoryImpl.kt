@@ -1,10 +1,11 @@
 package com.ephemerayne.leroymerlinmainuitest.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.ephemerayne.leroymerlinmainuitest.data.local.AppDao
 import com.ephemerayne.leroymerlinmainuitest.data.remote.AppApi
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.Product
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductCategory
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.CategoryEntity
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductEntity
 import com.ephemerayne.leroymerlinmainuitest.domain.home.Repository
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
@@ -16,19 +17,19 @@ class RepositoryImpl @Inject constructor(
     private val service: AppApi
 ) : Repository {
 
-    override fun getCategories(): LiveData<List<ProductCategory>> {
+    override fun getCategories(): LiveData<List<CategoryEntity>> {
         service.getCategories()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .subscribe(object : Observer<List<ProductCategory>> {
+            .subscribe(object : Observer<List<CategoryEntity>> {
 
                 override fun onSubscribe(d: Disposable?) {
                 }
 
-                override fun onNext(categories: List<ProductCategory>?) {
-                    categories?.let {
+                override fun onNext(categoryEntities: List<CategoryEntity>?) {
+                    categoryEntities?.let {
                         for (category in it) {
-                            appDao.insertProductCategory(category)
+                            appDao.insertProductCategory(category.toModel())
                         }
                     }
                 }
@@ -41,22 +42,24 @@ class RepositoryImpl @Inject constructor(
                 }
             })
 
-        return appDao.getCategories()
+        return appDao.getCategories().map { categoryModels ->
+            categoryModels.map { it.toEntity() }
+        }
     }
 
-    override fun getProducts(): LiveData<List<Product>> {
+    override fun getProducts(): LiveData<List<ProductEntity>> {
         service.getProducts()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
-            .subscribe(object : Observer<List<Product>> {
+            .subscribe(object : Observer<List<ProductEntity>> {
 
                 override fun onSubscribe(d: Disposable?) {
                 }
 
-                override fun onNext(products: List<Product>?) {
-                    products?.let {
+                override fun onNext(productEntities: List<ProductEntity>?) {
+                    productEntities?.let {
                         for (product in it) {
-                            appDao.insertProduct(product)
+                            appDao.insertProduct(product.toModel())
                         }
                     }
                 }
@@ -69,6 +72,8 @@ class RepositoryImpl @Inject constructor(
                 }
             })
 
-        return appDao.getProducts()
+        return appDao.getProducts().map { productModels ->
+            productModels.map { it.toEntity() }
+        }
     }
 }
