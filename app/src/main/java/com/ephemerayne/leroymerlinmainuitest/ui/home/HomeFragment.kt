@@ -67,6 +67,15 @@ class HomeFragment : Fragment(), CategoryListener, ProductListener {
         }
 
         viewModel.getProducts().observe(viewLifecycleOwner, { products ->
+
+            if (products.isNotEmpty()) {
+                binding.shimmerFirst.visibility = View.GONE
+                binding.shimmerSecond.visibility = View.GONE
+
+                binding.textLimitedOffer.visibility = View.VISIBLE
+                binding.textBestPrice.visibility = View.VISIBLE
+            }
+
             limitedAdapter.setProducts(products.filter { it.isLimitedOffer })
             bestPriceAdapter.setProducts(products.filter { it.isBestPrice })
         })

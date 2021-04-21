@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
@@ -24,12 +25,21 @@
         <!--        android:layout_marginTop="50dp"-->
         <!--        android:text="@string/recently_viewed"/>-->
 
+        <com.marozzi.shimmerview.ShimmerView
+            android:id="@+id/shimmer_first"
+            android:layout_width="200dp"
+            android:layout_height="21dp"
+            android:layout_marginVertical="30dp"
+            android:layout_marginStart="10dp"
+            app:sv_shape_square_corner="16dp"/>
+
         <TextView
             android:id="@+id/text_limited_offer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="30dp"
             android:layout_marginStart="10dp"
+            android:visibility="gone"
             android:text="@string/limited_offer" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -39,12 +49,21 @@
             android:clipToPadding="false"
             android:paddingHorizontal="10dp" />
 
+        <com.marozzi.shimmerview.ShimmerView
+            android:id="@+id/shimmer_second"
+            android:layout_width="200dp"
+            android:layout_height="21dp"
+            android:layout_marginVertical="30dp"
+            android:layout_marginStart="10dp"
+            app:sv_shape_square_corner="16dp"/>
+
         <TextView
             android:id="@+id/text_best_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="30dp"
             android:layout_marginStart="10dp"
+            android:visibility="gone"
             android:text="@string/best_price" />
 
         <androidx.recyclerview.widget.RecyclerView

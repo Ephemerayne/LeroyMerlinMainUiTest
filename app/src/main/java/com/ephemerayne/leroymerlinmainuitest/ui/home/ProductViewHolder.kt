@@ -27,8 +27,11 @@ class ProductViewHolder(
             Picasso.get().load(productEntity.imageURL).into(binding.imageProduct, object : Callback.EmptyCallback(){
                 override fun onSuccess() {
                     super.onSuccess()
-                    binding.shimmer.visibility = View.GONE
+                    binding.productShimmers.root.visibility = View.GONE
+
                     binding.imageProduct.visibility = View.VISIBLE
+                    binding.price.visibility = View.VISIBLE
+                    binding.title.visibility = View.VISIBLE
                 }
 
                 override fun onError(e: Exception?) {
