@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ephemerayne.leroymerlinmainuitest.databinding.ProductItemBinding
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductEntity
 
-class ProductAdapter : RecyclerView.Adapter<ProductViewHolder>() {
+class ProductAdapter(
+private val onProductListener: ProductListener,
+) : RecyclerView.Adapter<ProductViewHolder>() {
 
     private val productEntities: ArrayList<ProductEntity> = arrayListOf()
 
@@ -22,7 +24,8 @@ class ProductAdapter : RecyclerView.Adapter<ProductViewHolder>() {
             parent,
             false
         )
-        return ProductViewHolder(binding)
+
+        return ProductViewHolder(binding, onProductListener)
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) =

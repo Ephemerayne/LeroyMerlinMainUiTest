@@ -11,21 +11,18 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ephemerayne.leroymerlinmainuitest.App
 import com.ephemerayne.leroymerlinmainuitest.databinding.FragmentHomeBinding
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.AllCategory
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.CatalogCategory
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.Category
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.CategoryEntity
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.*
 import javax.inject.Inject
 
-class HomeFragment : Fragment(), CategoryListener {
+class HomeFragment : Fragment(), CategoryListener, ProductListener {
 
     @Inject
     lateinit var viewModel: HomeFragmentViewModel
 
     private lateinit var binding: FragmentHomeBinding
 
-    private val limitedAdapter: ProductAdapter = ProductAdapter()
-    private val bestPriceAdapter: ProductAdapter = ProductAdapter()
+    private val limitedAdapter: ProductAdapter = ProductAdapter(this)
+    private val bestPriceAdapter: ProductAdapter = ProductAdapter(this)
     private lateinit var categoriesAdapter: CategoriesAdapter
 
     override fun onCreateView(
@@ -87,5 +84,9 @@ class HomeFragment : Fragment(), CategoryListener {
 
     override fun onAllCategoryClick() {
         Toast.makeText(context, "All Categories clicked!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onProductClick(productEntity: ProductEntity) {
+        Toast.makeText(context, "Product ${productEntity.title} clicked!", Toast.LENGTH_SHORT).show()
     }
 }
