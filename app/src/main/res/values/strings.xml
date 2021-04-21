@@ -19,4 +19,6 @@
     <string name="recently_viewed">Недавно просмотренные</string>
     <string name="limited_offer">Предложение ограничено</string>
     <string name="best_price">Лучшая цена</string>
+
+    <string name="price">%s ₽/шт.</string>
 </resources>
