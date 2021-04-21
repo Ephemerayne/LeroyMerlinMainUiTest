@@ -16,14 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:paddingHorizontal="10dp" />
-
-        <!--    <TextView-->
-        <!--        android:id="@+id/text_recently_viewed"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_marginTop="50dp"-->
-        <!--        android:text="@string/recently_viewed"/>-->
+            android:paddingHorizontal="10dp"/>
 
         <com.marozzi.shimmerview.ShimmerView
             android:id="@+id/shimmer_first"
@@ -38,7 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="30dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="16dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:visibility="gone"
             android:text="@string/limited_offer" />
 
@@ -46,8 +41,7 @@
             android:id="@+id/recycler_view_limited_offer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingHorizontal="10dp" />
+            android:clipToPadding="false" />
 
         <com.marozzi.shimmerview.ShimmerView
             android:id="@+id/shimmer_second"
@@ -62,7 +56,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="30dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="16dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:visibility="gone"
             android:text="@string/best_price" />
 
@@ -70,7 +66,6 @@
             android:id="@+id/recycler_view_of_best_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:paddingHorizontal="10dp" />
+            android:clipToPadding="false" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -9,6 +9,7 @@ import com.ephemerayne.leroymerlinmainuitest.databinding.CategoryItemCatalogBind
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.AllCategory
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.CatalogCategory
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.CategoryEntity
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 abstract class CategoriesViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -31,7 +32,19 @@ class ProductCategoryViewHolder(
 
     private fun setCategoryImage(categoryEntity: CategoryEntity) {
         if (categoryEntity.imageURL.isNotEmpty()) {
-            Picasso.get().load(categoryEntity.imageURL).into(binding.categoryImage)
+            Picasso.get().load(categoryEntity.imageURL).into(binding.categoryImage, object:Callback.EmptyCallback() {
+
+                override fun onSuccess() {
+                    super.onSuccess()
+                    binding.shimmerImage.visibility = View.GONE
+                    binding.categoryName.visibility = View.VISIBLE
+                    binding.categoryImage.visibility = View.VISIBLE
+                }
+
+                override fun onError(e: Exception?) {
+                    super.onError(e)
+                }
+            })
         }
     }
 }
