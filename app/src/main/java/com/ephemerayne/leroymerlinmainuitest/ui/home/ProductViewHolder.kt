@@ -16,27 +16,33 @@ class ProductViewHolder(
     private val onProductListener: ProductListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun setProductContent(productEntity: ProductEntity) = with(binding) {
-        val formattedPrice = String.format(
-            root.resources.getString(R.string.price),
-            productEntity.price.formatPrice()
-        )
+    fun setProductContent(productEntity: ProductEntity) {
 
-        var spanString = SpannableString(formattedPrice)
-        spanString.setSpan(
-            RelativeSizeSpan(0.75f),
-            formattedPrice.indexOfFirst { it == ',' || it == ' ' },
-            formattedPrice.length,
-            0
-        )
+        binding.title.text = productEntity.title
+        binding.price.text = formatViewProductPrice(productEntity.price)
 
-        price.text = spanString
-        title.text = productEntity.title
-
-        root.setOnClickListener {
+        binding.root.setOnClickListener {
             onProductListener.onProductClick(productEntity)
         }
+
         setProductImage(productEntity)
+    }
+
+    private fun formatViewProductPrice(price: Double): SpannableString {
+        val formattedPrice = String.format(
+            binding.root.resources.getString(R.string.price),
+            price.formatPrice()
+        )
+
+        val decoratePrice = SpannableString(formattedPrice)
+        return decoratePrice.apply {
+            setSpan(
+                RelativeSizeSpan(0.75f),
+                formattedPrice.indexOfFirst { it == ',' || it == ' ' },
+                formattedPrice.length,
+                0
+            )
+        }
     }
 
     private fun setProductImage(productEntity: ProductEntity) {
