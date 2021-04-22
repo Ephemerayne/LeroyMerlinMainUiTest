@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -94,9 +95,10 @@ class HomeFragment : Fragment(), CategoryListener, ProductListener {
     }
 
     private fun openSearchFragment() {
-        val transaction = activity?.supportFragmentManager?.beginTransaction()
+        val manager: FragmentManager? = activity?.supportFragmentManager
+        val transaction = manager?.beginTransaction()
         transaction?.replace(R.id.nav_host_fragment, SearchFragment())
-        transaction?.addToBackStack("main")
+        transaction?.addToBackStack(null)
         transaction?.commit()
     }
 
