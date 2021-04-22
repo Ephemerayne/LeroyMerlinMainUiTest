@@ -4,15 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ephemerayne.leroymerlinmainuitest.databinding.ProductItemBinding
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.Product
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductEntity
 
-class ProductAdapter : RecyclerView.Adapter<ProductViewHolder>() {
+class ProductAdapter(
+private val onProductListener: ProductListener,
+) : RecyclerView.Adapter<ProductViewHolder>() {
 
-    private val products: ArrayList<Product> = arrayListOf()
+    private val productEntities: ArrayList<ProductEntity> = arrayListOf()
 
-    fun setProducts(products: List<Product>) = with(this.products) {
+    fun setProducts(productEntities: List<ProductEntity>) = with(this.productEntities) {
         clear()
-        addAll(products)
+        addAll(productEntities)
         notifyDataSetChanged()
     }
 
@@ -22,11 +24,12 @@ class ProductAdapter : RecyclerView.Adapter<ProductViewHolder>() {
             parent,
             false
         )
-        return ProductViewHolder(binding)
+
+        return ProductViewHolder(binding, onProductListener)
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) =
-        holder.setProductContent(products[position])
+        holder.setProductContent(productEntities[position])
 
-    override fun getItemCount() = products.size
+    override fun getItemCount() = productEntities.size
 }

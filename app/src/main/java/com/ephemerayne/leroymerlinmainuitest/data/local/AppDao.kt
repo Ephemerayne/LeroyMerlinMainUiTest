@@ -1,16 +1,16 @@
 package com.ephemerayne.leroymerlinmainuitest.data.local
 
 import androidx.lifecycle.LiveData
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.Product
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductCategory
+import com.ephemerayne.leroymerlinmainuitest.data.model.CategoryModel
+import com.ephemerayne.leroymerlinmainuitest.data.model.ProductModel
 
 interface AppDao {
 
-    fun insertProductCategory(category: ProductCategory)
+    fun insertProductCategory(category: CategoryModel)
 
-    fun getCategories(): LiveData<List<ProductCategory>>
+    fun getCategories(): LiveData<List<CategoryModel>>
 
-    fun insertProduct(product: Product)
+    fun insertProduct(product: ProductModel)
 
-    fun getProducts(): LiveData<List<Product>>
+    fun getProducts(): LiveData<List<ProductModel>>
 }

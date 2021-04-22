@@ -10,11 +10,13 @@ import com.ephemerayne.leroymerlinmainuitest.databinding.CategoryItemCatalogBind
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.AllCategory
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.CatalogCategory
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.Category
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductCategory
-import java.lang.IllegalArgumentException
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.CategoryEntity
 
 
-class CategoriesAdapter(context: Context) : RecyclerView.Adapter<CategoriesViewHolder<*>>() {
+class CategoriesAdapter(
+    context: Context,
+    private val onCategoryClickListener: CategoryListener,
+) : RecyclerView.Adapter<CategoriesViewHolder<*>>() {
 
     private val inflater = LayoutInflater.from(context)
 
@@ -33,7 +35,7 @@ class CategoriesAdapter(context: Context) : RecyclerView.Adapter<CategoriesViewH
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(
+    override fun onCreateViewHolder (
         parent: ViewGroup,
         viewType: Int
     ): CategoriesViewHolder<*> =
@@ -43,21 +45,24 @@ class CategoriesAdapter(context: Context) : RecyclerView.Adapter<CategoriesViewH
                     inflater,
                     parent,
                     false
-                )
+                ),
+                onCategoryClickListener
             )
             ALL_TYPE -> AllCategoryViewHolder(
                 CategoryItemAllBinding.inflate(
                     inflater,
                     parent,
                     false
-                )
+                ),
+                onCategoryClickListener
             )
             PRODUCT_TYPE -> ProductCategoryViewHolder(
                 CategoryItemBinding.inflate(
                     inflater,
                     parent,
                     false
-                )
+                ),
+                onCategoryClickListener
             )
             else -> throw IllegalArgumentException("Invalid view type.")
         }
@@ -66,7 +71,7 @@ class CategoriesAdapter(context: Context) : RecyclerView.Adapter<CategoriesViewH
         return when (categories[position]) {
             is CatalogCategory -> CATALOG_TYPE
             is AllCategory -> ALL_TYPE
-            is ProductCategory -> PRODUCT_TYPE
+            is CategoryEntity -> PRODUCT_TYPE
             else -> throw IllegalArgumentException("Invalid type of data $position.")
         }
     }
@@ -78,8 +83,10 @@ class CategoriesAdapter(context: Context) : RecyclerView.Adapter<CategoriesViewH
         when (holder) {
             is CatalogCategoryViewHolder -> holder.setContent(category as CatalogCategory)
             is AllCategoryViewHolder -> holder.setContent(category as AllCategory)
-            is ProductCategoryViewHolder -> holder.setContent(category as ProductCategory)
+            is ProductCategoryViewHolder -> holder.setContent(category as CategoryEntity)
             else -> throw IllegalArgumentException("Adapter can not set content.")
         }
     }
+
+
 }

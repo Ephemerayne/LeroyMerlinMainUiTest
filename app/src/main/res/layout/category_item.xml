@@ -7,20 +7,29 @@
     android:layout_height="120dp"
     app:cardCornerRadius="5dp"
     app:cardBackgroundColor="@color/light_grey"
-    android:layout_marginHorizontal="7dp">
+    android:layout_marginHorizontal="7dp"
+    android:foreground="@drawable/custom_ripple">
+
+    <com.marozzi.shimmerview.ShimmerView
+        android:id="@+id/shimmer_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_vertical|end|bottom"
+        app:sv_shape_square_corner="8dp" />
 
         <ImageView
             android:id="@+id/category_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_gravity="center_vertical|end|bottom"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
+            android:visibility="gone"
+            android:layout_gravity="center_vertical|end|bottom" />
 
         <TextView
             android:id="@+id/category_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text ="CATEGORY"
+            android:visibility="gone"
             android:padding="8dp"/>
 
     </androidx.cardview.widget.CardView>

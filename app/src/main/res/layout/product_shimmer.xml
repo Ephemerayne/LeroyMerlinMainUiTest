@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.marozzi.shimmerview.ShimmerView
+        android:id="@+id/shimmer_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:sv_shape_square_corner="8dp" />
+
+    <com.marozzi.shimmerview.ShimmerView
+        android:id="@+id/shimmer_one"
+        android:layout_width="120dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="20dp"
+        app:sv_shape_square_corner="16dp"/>
+
+    <com.marozzi.shimmerview.ShimmerView
+        android:id="@+id/shimmer_two"
+        android:layout_width="80dp"
+        android:layout_height="8dp"
+        android:layout_marginTop="8dp"
+        app:sv_shape_square_corner="16dp"/>
+
+    <com.marozzi.shimmerview.ShimmerView
+        android:id="@+id/shimmer_three"
+        android:layout_marginTop="16dp"
+        android:layout_width="80dp"
+        android:layout_height="12dp"
+        app:sv_shape_square_corner="16dp"/>
+
+</LinearLayout>

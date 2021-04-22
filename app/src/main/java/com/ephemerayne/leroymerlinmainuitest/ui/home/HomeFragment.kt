@@ -4,26 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ephemerayne.leroymerlinmainuitest.App
 import com.ephemerayne.leroymerlinmainuitest.databinding.FragmentHomeBinding
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.AllCategory
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.CatalogCategory
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.Category
+import com.ephemerayne.leroymerlinmainuitest.domain.entity.*
 import javax.inject.Inject
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), CategoryListener, ProductListener {
 
     @Inject
     lateinit var viewModel: HomeFragmentViewModel
 
     private lateinit var binding: FragmentHomeBinding
 
-    private val limitedAdapter: ProductAdapter = ProductAdapter()
-    private val bestPriceAdapter: ProductAdapter = ProductAdapter()
+    private val limitedAdapter: ProductAdapter = ProductAdapter(this)
+    private val bestPriceAdapter: ProductAdapter = ProductAdapter(this)
     private lateinit var categoriesAdapter: CategoriesAdapter
 
     override fun onCreateView(
@@ -37,7 +36,7 @@ class HomeFragment : Fragment() {
 
         (activity?.application as App).appComponent.inject(this)
 
-        context?.let { categoriesAdapter = CategoriesAdapter(it) }
+        context?.let { categoriesAdapter = CategoriesAdapter(it, this) }
 
         binding.recyclerViewCategories.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -68,10 +67,35 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.getProducts().observe(viewLifecycleOwner, { products ->
+
+            if (products.isNotEmpty()) {
+                binding.shimmerFirst.visibility = View.GONE
+                binding.shimmerSecond.visibility = View.GONE
+
+                binding.textLimitedOffer.visibility = View.VISIBLE
+                binding.textBestPrice.visibility = View.VISIBLE
+            }
+
             limitedAdapter.setProducts(products.filter { it.isLimitedOffer })
             bestPriceAdapter.setProducts(products.filter { it.isBestPrice })
         })
 
 
+    }
+
+    override fun onProductCategoryClick(categoryEntity: CategoryEntity) {
+        Toast.makeText(context, "Product category clicked: ${categoryEntity.title}", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onCatalogCategoryClick() {
+        Toast.makeText(context, "Catalog clicked!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onAllCategoryClick() {
+        Toast.makeText(context, "All Categories clicked!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onProductClick(productEntity: ProductEntity) {
+        Toast.makeText(context, "Product ${productEntity.title} clicked!", Toast.LENGTH_SHORT).show()
     }
 }

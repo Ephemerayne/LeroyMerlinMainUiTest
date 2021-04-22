@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.Product
-import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductCategory
+import com.ephemerayne.leroymerlinmainuitest.data.model.CategoryModel
+import com.ephemerayne.leroymerlinmainuitest.data.model.ProductModel
 
-@Database(entities = [ProductCategory::class, Product::class], version = 1)
+@Database(entities = [CategoryModel::class, ProductModel::class], version = 1)
 abstract class AppDatabase: RoomDatabase() {
 
     companion object {
