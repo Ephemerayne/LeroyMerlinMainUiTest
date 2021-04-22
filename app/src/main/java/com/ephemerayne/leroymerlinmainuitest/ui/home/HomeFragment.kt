@@ -80,7 +80,9 @@ class HomeFragment : Fragment(), CategoryListener, ProductListener {
             bestPriceAdapter.setProducts(products.filter { it.isBestPrice })
         })
 
-
+        binding.toolbarLayout.toolbar.setOnClickListener {
+            Toast.makeText(context,"Search clicked!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onProductCategoryClick(categoryEntity: CategoryEntity) {

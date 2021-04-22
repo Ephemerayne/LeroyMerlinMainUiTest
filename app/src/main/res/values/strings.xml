@@ -21,4 +21,13 @@
     <string name="best_price">Лучшая цена</string>
 
     <string name="price">%s ₽/шт.</string>
+    <string name="search">Поиск</string>
+
+    <string-array name="bla">
+        <item name="1">one</item>
+        <item name="2">two</item>
+        <item name="3">three</item>
+        <item name="4">four</item>
+
+    </string-array>
 </resources>
