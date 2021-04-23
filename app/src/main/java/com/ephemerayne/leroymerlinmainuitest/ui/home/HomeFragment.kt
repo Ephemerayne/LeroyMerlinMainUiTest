@@ -14,6 +14,7 @@ import com.ephemerayne.leroymerlinmainuitest.App
 import com.ephemerayne.leroymerlinmainuitest.R
 import com.ephemerayne.leroymerlinmainuitest.databinding.FragmentHomeBinding
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.*
+import com.ephemerayne.leroymerlinmainuitest.ui.search.SearchFragment
 import javax.inject.Inject
 
 class HomeFragment : Fragment(), CategoryListener, ProductListener {
