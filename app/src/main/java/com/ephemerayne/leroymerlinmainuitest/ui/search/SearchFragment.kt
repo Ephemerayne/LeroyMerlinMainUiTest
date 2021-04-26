@@ -9,13 +9,18 @@ import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.ephemerayne.leroymerlinmainuitest.R
 import com.ephemerayne.leroymerlinmainuitest.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
+    private lateinit var viewModel: SearchFragmentViewModel
+    private lateinit var adapter: ArrayAdapter<String>
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,14 +29,15 @@ class SearchFragment : Fragment() {
     ) = FragmentSearchBinding.inflate(inflater).also { binding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        adapter = ArrayAdapter<String>(binding.root.context, R.layout.search_item)
 
-        val searchCategories = arrayOf(
-            "Обои", "Ковер", "Люстры", "Стеллаж", "Шторы", "Зеркало", "Ламинат",
-            "Столы", "Линолеум", "Плинтус"
-        )
+        viewModel = ViewModelProvider(this).get(SearchFragmentViewModel::class.java)
 
-        val adapter = ArrayAdapter(binding.root.context, R.layout.search_item, searchCategories)
+        viewModel.getCategories("").observe(viewLifecycleOwner, {
+            adapter.clear()
+            adapter.addAll(it)
+        })
+
         binding.searchList.adapter = adapter
 
         val controller: LayoutAnimationController =
@@ -42,6 +48,16 @@ class SearchFragment : Fragment() {
         val inputManager =
             activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         inputManager?.showSoftInput(binding.toolbarLayout.search, InputMethodManager.SHOW_IMPLICIT)
+
+
+        binding.toolbarLayout.search.addTextChangedListener { input ->
+            input?.let {
+                viewModel.getCategories(it.toString()).observe(viewLifecycleOwner, { categories->
+                    adapter.clear()
+                    adapter.addAll(categories)
+                })
+            }
+        }
     }
 }
 
