@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ephemerayne.leroymerlinmainuitest.App
+import com.ephemerayne.leroymerlinmainuitest.R
 import com.ephemerayne.leroymerlinmainuitest.databinding.FragmentHomeBinding
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.*
+import com.ephemerayne.leroymerlinmainuitest.ui.search.SearchFragment
 import javax.inject.Inject
 
 class HomeFragment : Fragment(), CategoryListener, ProductListener {
@@ -80,13 +83,32 @@ class HomeFragment : Fragment(), CategoryListener, ProductListener {
             bestPriceAdapter.setProducts(products.filter { it.isBestPrice })
         })
 
-        binding.toolbarLayout.toolbar.setOnClickListener {
-            Toast.makeText(context,"Search clicked!", Toast.LENGTH_SHORT).show()
+        binding.toolbarLayout.search.setOnClickListener {
+            Toast.makeText(context, "Search clicked!", Toast.LENGTH_SHORT).show()
+            openSearchFragment()
+
+        }
+
+        with(binding.toolbarLayout.search) {
+            isFocusableInTouchMode = false
+            isCursorVisible = false
         }
     }
 
+    private fun openSearchFragment() {
+        val manager: FragmentManager? = activity?.supportFragmentManager
+        val transaction = manager?.beginTransaction()
+        transaction?.replace(R.id.nav_host_fragment, SearchFragment())
+        transaction?.addToBackStack(null)
+        transaction?.commit()
+    }
+
     override fun onProductCategoryClick(categoryEntity: CategoryEntity) {
-        Toast.makeText(context, "Product category clicked: ${categoryEntity.title}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context,
+            "Product category clicked: ${categoryEntity.title}",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onCatalogCategoryClick() {
@@ -98,6 +120,8 @@ class HomeFragment : Fragment(), CategoryListener, ProductListener {
     }
 
     override fun onProductClick(productEntity: ProductEntity) {
-        Toast.makeText(context, "Product ${productEntity.title} clicked!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Product ${productEntity.title} clicked!", Toast.LENGTH_SHORT)
+            .show()
     }
 }
+

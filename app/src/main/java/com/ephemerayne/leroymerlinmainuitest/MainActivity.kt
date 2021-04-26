@@ -52,4 +52,17 @@ class MainActivity : AppCompatActivity() {
             item.apply { isChecked = itemId == actionId }
         }
     }
+
+    override fun onBackPressed() {
+        val fragment: Fragment? = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        if (fragment != null && fragment is HomeFragment) {
+            finish()
+        } else {
+            if (supportFragmentManager.backStackEntryCount > 0) {
+                supportFragmentManager.popBackStack()
+            } else {
+                super.onBackPressed()
+            }
+        }
+    }
 }
