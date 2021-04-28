@@ -2,19 +2,26 @@ package com.ephemerayne.leroymerlinmainuitest.ui.home
 
 import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.ephemerayne.leroymerlinmainuitest.App
 import com.ephemerayne.leroymerlinmainuitest.R
 import com.ephemerayne.leroymerlinmainuitest.databinding.ProductItemBinding
 import com.ephemerayne.leroymerlinmainuitest.domain.entity.ProductEntity
 import com.ephemerayne.leroymerlinmainuitest.formatPrice
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
+import com.ephemerayne.leroymerlinmainuitest.utils.ImageLoader
+import javax.inject.Inject
 
 class ProductViewHolder(
     private val binding: ProductItemBinding,
-    private val onProductListener: ProductListener
+    private val onProductListener: ProductListener,
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
+    init {
+        App.appComponent.inject(this)
+    }
 
     fun setProductContent(productEntity: ProductEntity) {
 
@@ -47,21 +54,13 @@ class ProductViewHolder(
 
     private fun setProductImage(productEntity: ProductEntity) {
         if (productEntity.imageURL.isNotEmpty()) {
-            Picasso.get().load(productEntity.imageURL)
-                .into(binding.imageProduct, object : Callback.EmptyCallback() {
-                    override fun onSuccess() {
-                        super.onSuccess()
-                        binding.productShimmers.root.visibility = View.GONE
-
-                        binding.imageProduct.visibility = View.VISIBLE
-                        binding.price.visibility = View.VISIBLE
-                        binding.title.visibility = View.VISIBLE
-                    }
-
-                    override fun onError(e: Exception?) {
-                        super.onError(e)
-                    }
-                })
+            imageLoader.loadImage(
+                productEntity.imageURL,
+                binding.imageProduct,
+                binding.productShimmers.root,
+                binding.price,
+                binding.title
+            )
         }
     }
 }

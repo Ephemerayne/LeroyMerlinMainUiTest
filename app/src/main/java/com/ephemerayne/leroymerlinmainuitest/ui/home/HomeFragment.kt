@@ -37,7 +37,7 @@ class HomeFragment : Fragment(), CategoryListener, ProductListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity?.application as App).appComponent.inject(this)
+        App.appComponent.inject(this)
 
         context?.let { categoriesAdapter = CategoriesAdapter(it, this) }
 

@@ -5,8 +5,10 @@ import com.ephemerayne.leroymerlinmainuitest.di.AppComponent
 import com.ephemerayne.leroymerlinmainuitest.di.DaggerAppComponent
 import com.ephemerayne.leroymerlinmainuitest.di.modules.AppModule
 
-class App: Application() {
-    lateinit var appComponent: AppComponent
+class App : Application() {
+    companion object {
+        lateinit var appComponent: AppComponent
+    }
 
     override fun onCreate() {
         super.onCreate()
